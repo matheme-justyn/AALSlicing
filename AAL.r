@@ -25,7 +25,7 @@ AAL <- function(SliceNum, SliceType) {
   Zoom = 0.7
 
   # check Type
-  if (SliceType == "Saggital") {
+  if (SliceType == "Sagittal") {
     DimNum = 1
     ProjectDim = DimLimit[,2:3]*Zoom 
 	SliceRange = DimLimit[,1]
