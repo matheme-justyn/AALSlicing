@@ -8,13 +8,14 @@
 % 141028 skylikewater - first release
 %
 
-Path = 'D:\Dropbox\JTWorkspace\Script\R\NTU112\AALSlicing\';
+InputPath = 'D:\Dropbox\JTWorkspace\Script\R\NTU112\AALSlicing\';
+OutputPath = 'D:\Dropbox\JTWorkspace\Data\NTU112\Resource\';
 
-AALHeader = spm_vol(fullfile(Path, 'aal.nii'));
+AALHeader = spm_vol(fullfile(InputPath, 'aal.nii'));
 AAL = spm_read_vols(AALHeader);
 AALSize = size(AAL);
 
-AALNameFile = fullfile(Path, 'aal.nii.txt');
+AALNameFile = fullfile(InputPath, 'aal.nii.txt');
 AALName = importdata(AALNameFile);
 AALName = AALName.textdata;
 
@@ -74,7 +75,7 @@ for AALNameNum = 1:length(AALName)
 end
 XYZ = [XYZHeader; XYZ];
 
-fid = fopen(fullfile(Path, 'AALROICord.csv'),'w');
+fid = fopen(fullfile(OutputPath, 'AALROICord.csv'),'w');
 fprintf(fid, '%s,%s,%s,%s,%s,%s,%s\n', XYZ{1, :});
 for AALNameNum = 2:(length(AALName)+1)
   fprintf(fid, '%s,%u,%u,%u,%u,%u,%u\n', XYZ{AALNameNum, :});
