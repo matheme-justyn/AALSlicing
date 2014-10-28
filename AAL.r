@@ -12,9 +12,9 @@
 
 # SliceNum = 30
 # SliceType = "Horizontal"
-# AAL(23.5, "Horizontal")
-# AAL(23.5, "Saggital")
-# AAL(23.5, "Coronal")
+AAL(23.5, "Horizontal")
+AAL(23.5, "Saggital")
+AAL(23.5, "Coronal")
 
 AAL <- function(SliceNum, SliceType) {
   require(ggplot2)

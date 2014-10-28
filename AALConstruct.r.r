@@ -10,7 +10,7 @@
 # 141028 skylikewater - first release
 #
 
-AAL <- function() {
+AALConstruct <- function() {
   DimLimit = matrix(c(90, 91, 109, -90, -125, -71), nrow = 2, ncol = 3, byrow = TRUE)
 
   Path = "D:\\Dropbox\\JTWorkspace\\Script\\R\\NTU112\\AALSlicing\\"
