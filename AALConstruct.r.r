@@ -1,7 +1,5 @@
 # Program: AALConstruct.r
 #          Create AAL Coordinate
-# 
-#          In slice Type, you can choose "Saggital", "Coronal", "Horizontal".
 #
 # Programmer : skylikewater - Jheng-Ting Chen, NTU GIBMS 2nd, R01454016
 #              justin666666@gmail.com
