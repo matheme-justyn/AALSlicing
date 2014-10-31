@@ -1,9 +1,20 @@
 雖然大腦分區的圖解很多、相關方法學的理論也很成熟，
 但當研究者需要簡單的用節點與線段呈現結果時，多半依賴人工主觀的繪製
 
-這個 AALSlicing in R 希望能將現有的電腦解剖圖解的座標應用在圖 (Graph) 上，
+Although there's lots of atlas for brain anatomy segmentation,
+the methodology theory also mature,
+but when researcher need to draw their results by node and vertex, they still subjective drawing.
+
+這個 AALSlicing.r in R 希望能將現有的電腦解剖圖解的座標應用在圖 (Graph) 上，
 方便研究者快速的產出進一步的圖示。
+
+This AALSlicing.r in R use current automatic anatomy atlas coordination on graph,
+help researcher convenience product their own graph.
 
 方法為:
 將各腦區、視為以原體積大小的三次方根為半徑的圓球，
 在該切面上做截面。
+
+The method is:
+Considering every brain region as sphere which radius is three root of original size,
+plot a section on assign slice.
