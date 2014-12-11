@@ -8,6 +8,8 @@
 # 141028 skylikewater - first release
 #
 
+# source("D:\\Dropbox\\JTWorkspace\\Script\\R\\NTU112\\AALSlicing\\AALConstruct.r")
+
 AALConstruct <- function() {
   DimLimit = matrix(c(90, 91, 109, -90, -125, -71), nrow = 2, ncol = 3, byrow = TRUE)
 
@@ -22,16 +24,6 @@ AALConstruct <- function() {
   colnames(ROI) = c("ROIName", "Radius", "XCord", "YCord", "ZCord", "ROIRegion")
   ROI[, 1] = as.character(AALROICord[, 1])
   ROI[, 6] = as.character(AALROICord[, 8])
-  
-  # change ROI name specially
-  ROI[which(ROI == "Frontal_Med_Orb_R"), 1] = "Frontal_Mid_Orb_R"
-  ROI[which(ROI == "Frontal_Med_Orb_L"), 1] = "Frontal_Mid_Orb_L"
-  ROI[which(ROI == "Cingulum_Ant_L"), 1] = "Cingulate_Ant_L"
-  ROI[which(ROI == "Cingulum_Ant_R"), 1] = "Cingulate_Ant_R"
-  ROI[which(ROI == "Cingulum_Mid_L"), 1] = "Cingulate_Mid_L"
-  ROI[which(ROI == "Cingulum_Mid_R"), 1] = "Cingulate_Mid_R"
-  ROI[which(ROI == "Cingulum_Post_L"), 1] = "Cingulate_Post_L"
-  ROI[which(ROI == "Cingulum_Post_R"), 1] = "Cingulate_Post_R"
   
   # calculate Radius
   for (ROINow in 1:ROITotal) {
@@ -55,4 +47,5 @@ AALConstruct <- function() {
   ROI[, 5] = ((as.numeric(AALROICord[,6]) + DimLimit[2, 3]) + (as.numeric(AALROICord[,7]) + DimLimit[2, 3]))/2
   
   save(ROI, file = paste(Path, "AALROI.RData", sep = ""))
+  write.table(ROI, file = paste(Path, "AALROI.csv", sep = ""), sep = ",")
 }

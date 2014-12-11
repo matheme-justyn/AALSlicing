@@ -17,13 +17,7 @@
 # AAL(23.5, "Coronal")
 # source("D:\\Dropbox\\JTWorkspace\\Script\\R\\NTU112\\AALSlicing\\AAL.r")
 
-AAL <- function(SliceNum, SliceType) {
-  # check SliceType
-  if ((SliceType == "Sagittal")|(SliceType == "Coronal")|(SliceType == "Horizontal")) {
-  } else {
-    stop('Your SliceType should be Sagittal, Coronal, or Horizontal !!!')
-  }
-
+AAL <- function(SliceNum, SliceType = "Horizontal", ColorBlind = "Standard") {
   require(ggplot2)
 
   Dim = c(181, 217, 181) # from AAL in MRIcron
@@ -31,14 +25,19 @@ AAL <- function(SliceNum, SliceType) {
   RadiusLimit = 5
   AxisName = c("Left-Right", "Anterior-Posterior", "Superior-Inferior")
   Zoom = 0.7
-  # Colour-blind friendly
-  # Cerebellum, Frontal, Insula, Limbic, Occipital, Parietal, Subcortical, Temporal
-  ColorPalette = c("#999999", "#009E73", "#E69F00", "#D55E00", "#F0E442", "#CC79A7", "#0072B2", "#56B4E9")
+  if (ColorBlind == 'Standard') {
+    ColorPalette = brewer.pal(9, "Set1")
+  } else if (ColorBlind == 'ColorBlind') {
+    # Colour-blind friendly
+    # Cerebellum, Frontal, Insula, Limbic, Occipital, Parietal, Subcortical, Temporal
+    ColorPalette = c("#999999", "#009E73", "#E69F00", "#D55E00", "#F0E442", "#CC79A7", "#0072B2", "#56B4E9")
+  }
+  rm(ColorBlind)
 
   # check Type
   if (SliceType == "Sagittal") {
     DimNum = 1
-    ProjectDim = DimLimit[,2:3]*Zoom 
+    ProjectDim = DimLimit[,2:3]*Zoom
 	SliceRange = DimLimit[,1]
   } else if (SliceType == "Coronal") {
     DimNum = 2
@@ -46,21 +45,21 @@ AAL <- function(SliceNum, SliceType) {
     SliceRange = DimLimit[,2]
   } else if (SliceType == "Horizontal") {
     DimNum = 3
-    ProjectDim = DimLimit[,1:2]*Zoom 
+    ProjectDim = DimLimit[,1:2]*Zoom
     SliceRange = DimLimit[,3]
   }
   AxisName = AxisName[-DimNum]
-  
+
   # check SlickNum out of range
   if ((SliceNum > max(SliceRange))|(SliceNum < min(SliceRange))) {
     stop('Your SliceNum is out of range !!!')
   }
-  
+
   Path = "D:\\Dropbox\\JTWorkspace\\Script\\R\\NTU112\\AALSlicing\\"
   AALROIPath = paste(Path, "AALROI.RData", sep = "")
   load(AALROIPath)
   rm(AALROIPath)
-  
+
   ROIName = as.character(ROI[, 1])
   X = matrix(0, dim(ROI)[1], 1)
   Y = matrix(0, dim(ROI)[1], 1)
@@ -84,14 +83,14 @@ AAL <- function(SliceNum, SliceType) {
 	}
   }
   rm(ROI)
-  
+
   # Remove would not show
   VarName = c("ROIName", "X", "Y", "Radius", "ROIRegion", "Depth")
   for (VarNum in 1:length(VarName)) {
     RemoveStr = paste(VarName[VarNum], " = ", VarName[VarNum], "[Remove == 1]", sep = "")
     eval(parse(text = RemoveStr))
   }
-  
+
   # Simplify ROI name
   if (SliceType == "Sagittal") {
     ROINameSim = matrix(0, length(ROIName), 1)
@@ -120,7 +119,7 @@ AAL <- function(SliceNum, SliceType) {
 	ROIName = ROINameSim
 	rm(ROINameSim)
   }
-  
+
   Radius80Per = as.numeric(as.character(Radius))*0.8
   # Color
   Color = c(1, 2, 3, 4, 5, 6, 7, 8)
@@ -136,7 +135,7 @@ AAL <- function(SliceNum, SliceType) {
   }
   if (!any(ROIRegion == "Occipital")) {
     Color = Color[-5]
-  } 
+  }
   if (!any(ROIRegion == "Limbic")) {
     Color = Color[-4]
   }
@@ -153,7 +152,7 @@ AAL <- function(SliceNum, SliceType) {
   GraphDF = data.frame(ROIName = ROIName, X = X, Y = Y, Radius = Radius, Radius80Per = Radius80Per, ROIRegion = ROIRegion, Depth = Depth)
   GraphDF = GraphDF[order(Depth), ] # Sort by Depth
   rm(ROIName, X, Y, Radius, Radius80Per, ROIRegion, Depth)
-  
+
   Graph = ggplot(GraphDF, aes(x = X, y = Y, label = ROIName))
   Graph = Graph + geom_point(aes(colour = ROIRegion, size = Radius))
   Graph = Graph + geom_point(size = GraphDF$Radius80Per, colour = "white")
@@ -191,9 +190,9 @@ AAL <- function(SliceNum, SliceType) {
                         axis.title.y = element_text(face = "bold", size = 20))
   Dim = Dim[-DimNum]
   Graph = Graph + coord_fixed(Dim[1]/Dim[2]) # aspect ratio
-  #Graph
-  
-  OutputPath = "D:\\Dropbox\\JTWorkspace\\Data\\NTU112\\"
+  #print(Graph)
+
+  OutputPath = "D:\\Dropbox\\JTWorkspace\\Data\\NTU112\\AALSlicing\\"
   if ((SliceNum %% 1) == 0) {
     SliceStr = paste(as.character(abs(SliceNum)), ".0", sep = "")
   } else {

@@ -21,8 +21,8 @@ Supp_Motor_Area_L,72,93,104,158,116,152,Frontal
 Supp_Motor_Area_R,90,109,97,154,118,152,Frontal
 Olfactory_L,64,91,130,158,53,72,Frontal
 Olfactory_R,91,121,134,156,52,72,Frontal
-Frontal_Sup_Medial_L,73,93,143,200,70,138,Frontal
-Frontal_Sup_Medial_R,91,111,147,200,70,138,Frontal
+Frontal_Sup_Med_L,73,93,143,200,70,138,Frontal
+Frontal_Sup_Med_R,91,111,147,200,70,138,Frontal
 Frontal_Med_Orb_L,75,93,149,198,57,72,Frontal
 Frontal_Med_Orb_R,89,107,148,198,56,72,Frontal
 Rectus_L,70,93,138,194,47,62,Frontal
@@ -67,8 +67,8 @@ Angular_L,30,65,49,80,94,126,Parietal
 Angular_R,114,155,45,84,94,130,Parietal
 Precuneus_L,64,93,44,92,73,156,Parietal
 Precuneus_R,90,121,44,92,72,152,Parietal
-Paracentral_Lobule_L,71,91,83,118,123,156,Parietal
-Paracentral_Lobule_R,89,107,82,110,120,154,Parietal
+Paracentral_L,71,91,83,118,123,156,Frontal
+Paracentral_R,89,107,82,110,120,154,Frontal
 Caudate_L,70,89,101,154,60,98,Subcortical
 Caudate_R,93,113,103,154,60,98,Subcortical
 Putamen_L,56,83,105,148,62,88,Subcortical
